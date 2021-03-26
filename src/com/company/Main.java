@@ -3,19 +3,31 @@ package com.company;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
 public class Main {
 	public static class CPU {
-		String byte1;
+		String instruction;
+		public CPU(String arg){
+			Memory m = new Memory();
+			m.initiate(arg);
+			instruction = m.storage[0];
+		}
+		int programCounter=0;
+
+		public void initialize(){
+			// loop through fetch decode and execute
+		}
+
 		public String fetch(){
+
 			//fetches instruction from memory
-			return byte1;
+			return(instruction);
 		}
 		public void decode(){
 			//decodes the fetched instruction
 		}
 		public void execute(){
-			//execute code and increment program counter
+			//execute code
+			programCounter++;
 		}
 	}
 	public static class Memory {
@@ -42,11 +54,8 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-	CPU c = new CPU();
-	c.byte1 = args[0];
-	System.out.println(c.byte1);
-	Memory m = new Memory();
-	m.initiate(args[0]);
+	CPU c = new CPU(args[0]);
+	System.out.println(c.fetch());
     }
 
 }
