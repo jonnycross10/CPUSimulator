@@ -6,21 +6,23 @@ import java.util.Scanner;
 public class Main {
 	public static class CPU {
 		String instruction;
-		public CPU(String arg){
-			Memory m = new Memory();
-			m.initiate(arg);
-			instruction = m.storage[0];
-		}
 		int programCounter=0;
 
-		public void initialize(){
+		public void initialize(String arg){
 			// loop through fetch decode and execute
+			Memory m = new Memory();
+			m.initiate(arg);
+			for(int i =0; i<27;i++){
+				instruction = fetch(m,i); // fetch the i'th instruction
+				//System.out.println(instruction);
+
+			}
 		}
 
-		public String fetch(){
-
+		public String fetch(Memory m, int i){
 			//fetches instruction from memory
-			return(instruction);
+
+			return(m.storage[i]);
 		}
 		public void decode(){
 			//decodes the fetched instruction
@@ -41,7 +43,7 @@ public class Main {
 				Scanner myReader = new Scanner(myObj);
 				while (myReader.hasNextLine()) {
 					String data = myReader.nextLine();
-					System.out.println(data);
+					//System.out.println(data);
 					storage[count] = data;
 					count++;
 				}
@@ -54,8 +56,8 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-	CPU c = new CPU(args[0]);
-	System.out.println(c.fetch());
+	CPU c = new CPU();
+	c.initialize(args[0]);
     }
 
 }
