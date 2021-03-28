@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -12,11 +13,16 @@ public class Main {
 			// loop through fetch decode and execute
 			Memory m = new Memory();
 			m.initiate(arg);
+			Stack<String> S = new Stack<>();
 			for(int i =0; i<27;i++){
 				instruction = fetch(m,i); // fetch the i'th instruction
 				//System.out.println(instruction);
 
+
+				S = decode(instruction, S);
+
 			}
+			System.out.println(S.peek());
 		}
 
 		public String fetch(Memory m, int i){
@@ -24,8 +30,14 @@ public class Main {
 
 			return(m.storage[i]);
 		}
-		public void decode(){
+		public Stack<String> decode(String arg, Stack<String> s){
 			//decodes the fetched instruction
+			if (arg.equals("D000")){ //In CL argument goes to stack
+				s.push("IN");
+
+			}
+
+			return(s);
 		}
 		public void execute(){
 			//execute code
