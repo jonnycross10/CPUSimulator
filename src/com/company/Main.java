@@ -84,8 +84,14 @@ public class Main {
 				s.push(0);
 
 			}
-			//Push
+			//Push I
 			if(hexString.substring(0,2).equals("10")){ //if the instruction starts with 10
+				int i = Integer.parseInt(hexString.substring(2,4),16);
+				System.out.println(i);
+				s.push(i);
+			}
+			//Push A
+			if(hexString.substring(0,2).equals("20")){ //if the instruction starts with 10
 
 				s.push(m.storage[arg]);
 			}
