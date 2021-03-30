@@ -30,7 +30,8 @@ public class Main {
 				S = decode(instruction, S, m);
 
 			}
-			System.out.println(S.size() + "" + S.peek());
+			System.out.println("Stack size: " + S.size());
+			System.out.println("Stack top: " + S.peek());
 		}
 
 		public int initiate(String arg, Memory m){
@@ -42,8 +43,6 @@ public class Main {
 				Scanner myReader = new Scanner(myObj);
 				while (myReader.hasNextLine()) {
 					String data = myReader.nextLine();
-					System.out.print(count+": ");
-					System.out.println(data);
 					if(count !=0) {
 
 
@@ -71,8 +70,11 @@ public class Main {
 
 			return(m.storage[i]);
 		}
+
+
+		//decode and execute instructions
 		public Stack<Integer> decode(int arg, Stack<Integer> s, Memory m){
-			//decodes the fetched instruction
+
 			//System.out.println(arg.substring(0,1)); //test
 			String hexString = Integer.toHexString(arg);
 			hexString = formatHex(hexString);
@@ -90,10 +92,7 @@ public class Main {
 
 			return(s);
 		}
-		public void execute(){
-			//execute code
-			programCounter++;
-		}
+
 	}
 
 	public static class Memory {
