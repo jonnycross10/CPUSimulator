@@ -17,6 +17,7 @@ public class Main {
 			String fileName = "";
 			int inputInt = 0;
 
+			//format arguments
 			if(arg.length == 1){
 				fileName = arg[0];
 			}
@@ -46,9 +47,17 @@ public class Main {
 				S = decode(instruction, S, m, inputInt);
 				programCounter++;
 
+				//print top of stack
+				try{
+					System.out.println("Stack top: " + S.peek());
+				}
+				catch(EmptyStackException e){
+					System.out.println("Stack empty");
+				}
+
 			}
-			System.out.println("Stack size: " + S.size());
-			System.out.println("Stack top: " + S.peek());
+			//System.out.println("Stack size: " + S.size());
+			//System.out.println("Stack top: " + S.peek());
 		}
 
 		public int initiate(String arg, Memory m){
@@ -64,6 +73,7 @@ public class Main {
 
 
 						m.storage[count-1] = Integer.parseInt(data, 16);
+
 					}
 					count++;
 				}
@@ -79,7 +89,7 @@ public class Main {
 			while(s.length()<4){
 				s = "0"+s;
 			}
-			return s;
+			return s.toUpperCase();
 		}
 
 		public int fetch(Memory m, int i){
@@ -90,8 +100,8 @@ public class Main {
 
 
 		//decode and execute instructions
-		public Stack<Integer> decode(int arg, Stack<Integer> s, Memory m, int input){
-
+		public Stack<Integer> decode(int arg, Stack<Integer> s, Memory m, int in){
+			int input = in;
 			//System.out.println(arg.substring(0,1)); //test
 			String hexString = Integer.toHexString(arg);
 			hexString = formatHex(hexString);
@@ -138,14 +148,16 @@ public class Main {
 			}
 
 			//In port
-			if (hexString.substring(0,2).equals("D0")){ //In CL argument goes to stack
-				s.push(0);
+			if (hexString.equals("D000")){ //In CL argument goes to stack
+				System.out.println(input);
+				s.push(input);
 				//push in[port] to stack
 			}
 
 			//Out Port
 			if (hexString.substring(0,2).equals("E0")){
-				s.push(0);
+				int a = s.pop();
+				input = a;
 				//pop stack onto port
 
 			}
