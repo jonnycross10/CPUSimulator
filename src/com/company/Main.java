@@ -102,54 +102,55 @@ public class Main {
 		//decode and execute instructions
 		public Stack<Integer> decode(int arg, Stack<Integer> s, Memory m, int in){
 			int input = in;
+
 			//System.out.println(arg.substring(0,1)); //test
 			String hexString = Integer.toHexString(arg);
 			hexString = formatHex(hexString);
-			System.out.println(hexString);
+			//System.out.println(hexString);
+
+			int twoBit = Integer.parseInt(hexString.substring(2,4),16);
 
 			//Push I
 			if(hexString.substring(0,2).equals("10")){ //if the instruction starts with 10
-				int i = Integer.parseInt(hexString.substring(2,4),16);
-				System.out.println(i);
-				s.push(i);
+				//System.out.println(i);
+				s.push(twoBit);
 			}
 			//Push A
 			if(hexString.substring(0,2).equals("20")){
 
-				s.push(m.storage[arg]);
+				System.out.println(m.storage[arg]);
+				s.push(m.storage[twoBit]);
 			}
 
 			//Pop and store in A
 			//implement after IN is finished
 			if(hexString.substring(0,2).equals("30")){
-				//m.storage[arg] = s.pop();
+				m.storage[twoBit] = s.pop();
 			}
 
 			//JMP A
 			if(hexString.substring(0,2).equals("40")) {
-				int i = Integer.parseInt(hexString.substring(2,4),16);
-				programCounter = i;
+
+				programCounter = twoBit;
 			}
 
 			//JZ A
 			if(hexString.substring(0,2).equals("50")){
 				if(s.peek()==0) {
-					int i = Integer.parseInt(hexString.substring(2, 4), 16);
-					programCounter = i;
+					programCounter = twoBit;
 				}
 			}
 
 			//JNZ A
 			if(hexString.substring(0,2).equals("60")){
 				if(s.peek()!=0) {
-					int i = Integer.parseInt(hexString.substring(2, 4), 16);
-					programCounter = i;
+					programCounter = twoBit;
 				}
 			}
 
 			//In port
 			if (hexString.equals("D000")){ //In CL argument goes to stack
-				System.out.println(input);
+				//System.out.println(input);
 				s.push(input);
 				//push in[port] to stack
 			}
