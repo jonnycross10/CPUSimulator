@@ -102,6 +102,7 @@ public class Main {
 		//decode and execute instructions
 		public Stack<Integer> decode(int arg, Stack<Integer> s, Memory m, int in){
 			int input = in;
+			int output =-1;
 
 			//System.out.println(arg.substring(0,1)); //test
 			String hexString = Integer.toHexString(arg);
@@ -118,7 +119,6 @@ public class Main {
 			//Push A
 			if(hexString.substring(0,2).equals("20")){
 
-				System.out.println(m.storage[arg]);
 				s.push(m.storage[twoBit]);
 			}
 
@@ -158,7 +158,7 @@ public class Main {
 			//Out Port
 			if (hexString.substring(0,2).equals("E0")){
 				int a = s.pop();
-				input = a;
+				output = a;
 				//pop stack onto port
 
 			}
@@ -322,13 +322,17 @@ public class Main {
 				s.push(~a);
 			}
 
+			if(output != -1){
+				System.out.println("Output is: " +output);
+			}
+
 				return(s);
 		}
 
 	}
 
 	public static class Memory {
-		int maxMem = 4096 * 16; // might be 16 x 4096
+		int maxMem = 4096 * 16;
 		Integer[] storage = new Integer[maxMem];
 
 	}
