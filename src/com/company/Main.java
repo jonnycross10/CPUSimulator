@@ -47,6 +47,7 @@ public class Main {
 				S = decode(instruction, S, m, inputInt);
 				programCounter++;
 
+				/*
 				//print top of stack
 				try{
 					System.out.println("Stack top: " + S.peek());
@@ -54,6 +55,8 @@ public class Main {
 				catch(EmptyStackException e){
 					System.out.println("Stack empty");
 				}
+				*/
+
 
 			}
 			//System.out.println("Stack size: " + S.size());
@@ -339,7 +342,6 @@ public class Main {
 
 	public static void main(String[] args) {
 	CPU c = new CPU();
-	System.out.println(args.length);
 	c.initialize(args);
     }
 
