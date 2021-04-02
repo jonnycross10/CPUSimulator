@@ -13,7 +13,7 @@ public class Main {
 		public void initialize(String[] arg){
 
 			Memory m = new Memory();
-			String option;
+			String option = "";
 			String fileName = "";
 			int inputInt = 0;
 
@@ -47,15 +47,15 @@ public class Main {
 				S = decode(instruction, S, m, inputInt);
 				programCounter++;
 
-				/*
-				//print top of stack
-				try{
-					System.out.println("Stack top: " + S.peek());
+				if(option.equals("-t")) {
+					//print top of stack
+					try {
+						System.out.println("Stack top: " + S.peek());
+					} catch (EmptyStackException e) {
+						System.out.println("Stack empty");
+					}
 				}
-				catch(EmptyStackException e){
-					System.out.println("Stack empty");
-				}
-				*/
+
 
 
 			}
